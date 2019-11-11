@@ -27,8 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _personProvider = PersonProvider();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,20 +35,35 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FutureBuilder<Person>(
-                future: _personProvider.getCurrentPerson(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return PersonContainer(person: snapshot.data);
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  return CircularProgressIndicator();
+            FutureBuilderFun(),
+            FloatingActionButton(
+                child: Icon(Icons.autorenew),
+                backgroundColor: Colors.blue,
+                onPressed: () {
+                  setState(() {
+                    FutureBuilderFun();
+                  });
                 }),
-            FlatButton(child: Icon(Icons.autorenew)),
           ],
         ),
       ),
     );
+  }
+}
+
+class FutureBuilderFun extends StatelessWidget {
+  final _personProvider = PersonProvider();
+
+  Widget build(BuildContext context) {
+    return FutureBuilder<Person>(
+        future: _personProvider.getCurrentPerson(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return PersonContainer(person: snapshot.data);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        });
   }
 }
