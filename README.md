@@ -1,16 +1,9 @@
 # test_1
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Load from https://randomuser.me/:
+a)picture, first name, last name;
+b)must be in the center with two buttons.
+2. First button must refresh to another randomuser.
+3. Second button must open details page
+with distance from you to this person.
+Use Geo location (packeg) to calculate distance.
