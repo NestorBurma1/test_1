@@ -8,12 +8,12 @@ class PersonContainer extends StatelessWidget {
       : assert(person != null),
         super(key: key);
 
-  Widget build(BuildContext context) {
-    return _showPerson(context, person);
+  Widget build(context) {
+    return showPerson(context, person);
   }
 }
 
-Column _showPerson(BuildContext context, Person _person) {
+Column showPerson(context, Person _person) {
   return
       Column(
         crossAxisAlignment: CrossAxisAlignment.center,
