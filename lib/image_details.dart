@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:test_1/get_my_location.dart';
 import 'package:test_1/model.dart';
-import 'package:test_1/person_container.dart';
-import 'package:test_1/person_provaider.dart';
+import 'package:flutter/foundation.dart';
 
 class ImageDetails extends StatelessWidget {
+  const ImageDetails({Key key, this.context, this.future}) : super(key: key);
   final BuildContext context;
   final Future future;
-
-  const ImageDetails({Key key, this.context, this.future}) : super(key: key);
 
   @override
   Widget build(context) {
@@ -33,50 +31,20 @@ class ImageDetails extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     person = snapshot.data;
-                    return Image.network(person.pictureUrl);
+                    return Column(
+                      children: <Widget>[
+                        Image.network(person.pictureUrl),
+                        GetMyLocation(person1: person),
+                      ],
+                    );
                   } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
+                    return Text('${snapshot.error}');
                   }
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 })),
-            GetDistance(person: person),
           ],
         ),
       ),
     );
-  }
-}
-
-class GetDistance extends StatelessWidget {
-  final Person person;
-
-  const GetDistance({Key key, this.person}) : super(key: key);
-  Future<Position> getLocation() async {
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    return position;
-  }
-  Future<double> getPersonLocation(Position position1, Position position2) async {
-    double distanceInMeters = await Geolocator().
-    distanceBetween(position1.latitude, position1.longitude, this.person.latitude, this.person.longitude);
-    return distanceInMeters;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Future _future = getLocation();
-    Position _myPosition;
-    return FutureBuilder<Position>(
-//        Text('${myPosition.latitude}, ${myPosition.longitude}');
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            _myPosition = snapshot.data;
-            return Text('${_myPosition.latitude}, ${_myPosition.longitude}');
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          return CircularProgressIndicator();
-        });
   }
 }

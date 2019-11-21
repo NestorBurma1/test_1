@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/model.dart';
 import 'package:test_1/person_provaider.dart';
 
 import 'future_builder_fun.dart';
@@ -17,13 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+ const MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -50,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new FloatingActionButton(
-                    heroTag: "btn1",
+                 FloatingActionButton(
+                    heroTag: 'btn1',
                     child: Icon(Icons.autorenew),
                     backgroundColor: Colors.blue,
                     onPressed: () {
@@ -60,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             future = PersonProvider().getCurrentPerson());
                       });
                     }),
-                new FloatingActionButton(
-                    heroTag: "btn2",
+                FloatingActionButton(
+                    heroTag: 'btn2',
                     child: Icon(Icons.arrow_forward),
                     backgroundColor: Colors.blue,
                     onPressed: () {
